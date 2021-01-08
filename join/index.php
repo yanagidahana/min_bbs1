@@ -29,7 +29,8 @@ if(!empty($_POST)) {
 		// ../member_picture/' . $image＝移動さき'
 
 		 $image = date('YmdHis') . $_FILES['image']['name'];		 
-		 move_uploaded_file($_FILES['image']['tmp_name'],'../member_picture/' . $image);
+		 move_uploaded_file($_FILES['image']['tmp_name'],
+		 '../member_picture/' . $image);
 		$_SESSION['join'] = $_POST;
 		$_SESSION['join']['image'] = $image;
 		header('Location: check.php');
