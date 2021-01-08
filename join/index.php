@@ -20,6 +20,18 @@ if(!empty($_POST)) {
 	if (strlen($_POST['password']) < 4) {
 		$error['password'] = 'length';
 	}
+
+	$fileName = $_FILES['image']['name'];
+	// // empty=空  fileNameが空でない時に
+	// // substr＝文字列を抽出する 3文字を
+	// $ext＝切り取った 3もじが 'jpg' または 'gif'の場合認識する
+	// != それ以外は'type'エラーを表示
+	if(!empty($fileName)) {
+		$ext = substr($fileName, -3);
+		if ($ext != 'jpg' && $ext != 'gif' && $ext != 'png') {
+			$error['image'] = 'type';
+		}
+	}
 	
 	if (empty($error)) {
 
@@ -103,6 +115,11 @@ if ($_REQUEST['action'] == 'rewrite' && isset($_SESSION['join'])) {
 		<dd>
         	<input type="file" name="image" size="35" value="test"  />
         </dd>
+				<input type="text" name="image" size="35" maxlength="255" value="<?php print(htmlspecialchars($_POST['email'],ENT_QUOTES)); ?>" />
+					<?php if ($error['image'] === 'type'): ?>
+						<p class="error">写真は[.gif][.png][jpg]の画像を指定してください</p>
+						<?php endif; ?>
+
 	</dl>
 	<div><input type="submit" value="入力内容を確認する" /></div>
 </form>
