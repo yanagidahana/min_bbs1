@@ -114,12 +114,17 @@ if ($_REQUEST['action'] == 'rewrite' && isset($_SESSION['join'])) {
 		<dt>写真など</dt>
 		<dd>
         	<input type="file" name="image" size="35" value="test"  />
-        </dd>
-				<input type="text" name="image" size="35" maxlength="255" value="<?php print(htmlspecialchars($_POST['email'],ENT_QUOTES)); ?>" />
+				<input type="text" name="image" size="35" maxlength="255" value="<?php print(htmlspecialchars($_POST['image'],ENT_QUOTES)); ?>" />
 					<?php if ($error['image'] === 'type'): ?>
 						<p class="error">写真は[.gif][.png][jpg]の画像を指定してください</p>
 						<?php endif; ?>
 
+						<!-- $error=エラーの中に何かが入っていれば -->
+						<?php if(!empty($error)): ?>
+						<p class="error">恐れ入りますが、画像を改めて指定して下さい</p>
+						<?php endif; ?>
+
+        </dd>
 	</dl>
 	<div><input type="submit" value="入力内容を確認する" /></div>
 </form>
