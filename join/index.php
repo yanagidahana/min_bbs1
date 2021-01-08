@@ -22,7 +22,16 @@ if(!empty($_POST)) {
 	}
 	
 	if (empty($error)) {
+
+		// // $_FILES＝グローバル変数/現在のセッションに登録されている値の変数
+		// ['tmp_name']＝仮に写真を置いている
+		// move_uploaded_file＝['tmp_name']をアップロードされたファイルを新しい位置に移動する
+		// ../member_picture/' . $image＝移動さき'
+
+		 $image = date('YmdHis') . $_FILES['image']['name'];		 
+		 move_uploaded_file($_FILES['image']['tmp_name'],'../member_picture/' . $image);
 		$_SESSION['join'] = $_POST;
+		$_SESSION['join']['image'] = $image;
 		header('Location: check.php');
 		exit();
 	}
