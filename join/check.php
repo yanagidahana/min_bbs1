@@ -1,12 +1,40 @@
 <?php
 session_start();
 
+// requireとは、外部ファイルを読み込み、実行
+require('../dbconnect.php');
+
 // joinに名前が入っていない場合に実行
 if (!isset($_SESSION['join'])) {
 	// header関数で別のページに移動させる(リダイレクト処理)
 	header('Location: index.php');
 	exit();
 
+}
+
+if (!empty($_POST)) {
+
+	// dbの登録
+	$statement = $db->prepare('INSERT INTO members SET 
+	name=?, email=?, password=?, picture=?, created=NOW
+	()');
+
+// prepareの？に値を入れる
+	$statement->execute(array(
+		$_SESSION['join']['name'],
+		$_SESSION['join']['email'],
+		$_SESSION['join']['password'],
+		sha1($_SESSION['join']['password']),
+		$_SESSION['join']['image']
+	));
+
+	// 登録情報消去
+	// unset=joinを空にする
+	unset($_SESSION['join']);
+
+	// 完了画面にアクセス
+	header('Location: thanks.php');
+	exit();
 }
 ?>
 
@@ -32,6 +60,8 @@ if (!isset($_SESSION['join'])) {
 <div id="content">
 <p>記入した内容を確認して、「登録する」ボタンをクリックしてください</p>
 <form action="" method="post">
+
+<!-- type="hidden"を指定すると、 ブラウザ上に表示されない非表示データを送信することができます。 -->
 	<input type="hidden" name="action" value="submit" />
 	<dl>
 		<dt>ニックネーム</dt>
