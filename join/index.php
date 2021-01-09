@@ -2,6 +2,8 @@
 
 session_start();
 
+require('../dbconnect.php');
+
 // empty=空
 // $_POST(ポスト変数)を利用することで、HTML入力フォームの値を受信して処理することが出来ます
 if(!empty($_POST)) {
@@ -31,10 +33,17 @@ if(!empty($_POST)) {
 // if ($_REQUEST['action'] == 'rewrite') {= urlパラメーターにリンクがついていれば
 	// $_SESSION=	サイトを訪れたユーザデータを個別に管理できます。
 	// && = セッションが正しく設定されている時のみ
-if ($_REQUEST['action'] == 'rewrite' && isset($_SESSION['join'])) {
-	$_POST = $_SESSION['join'];
-
+	$fileName = $_FILES['image']['name'];
+if (!empty($fileName)) {
+	$ext = substr($fileName, -3);
+	if ($ext != 'jpg' && $ext != 'gif'){
+	$error['image'] = 'type';
 }
+}
+
+//  ($_REQUEST[''] == 'rewrite' && isset($_SESSION['join'])) {
+// 	$_POST = $_SESSION['join'];
+
 	
 ?>
 
