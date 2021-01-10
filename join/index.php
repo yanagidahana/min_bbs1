@@ -34,16 +34,12 @@ if(!empty($_POST)) {
 	// $_SESSION=	サイトを訪れたユーザデータを個別に管理できます。
 	// && = セッションが正しく設定されている時のみ
 	$fileName = $_FILES['image']['name'];
-if (!empty($fileName)) {
-	$ext = substr($fileName, -3);
-	if ($ext != 'jpg' && $ext != 'gif'){
-	$error['image'] = 'type';
+	if (!empty($fileName)) {
+		$ext = substr($fileName, -3);
+		if ($ext != 'jpg' && $ext != 'gif'){
+		$error['image'] = 'type';
+	}
 }
-}
-
-//  ($_REQUEST[''] == 'rewrite' && isset($_SESSION['join'])) {
-// 	$_POST = $_SESSION['join'];
-
 	
 ?>
 
