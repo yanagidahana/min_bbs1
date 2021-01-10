@@ -161,6 +161,7 @@ $error['email'] = 'duplicate';
 </body>
 </html>
  
+
  
  
 <?php
@@ -201,3 +202,5 @@ header('Location: thanks.php');
 exit();
 }
 ?>
+
+
